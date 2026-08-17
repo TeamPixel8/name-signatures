@@ -74,6 +74,18 @@ button {
   border-radius: 5px;
 }
 
+.copy-button {
+  width: auto;
+  margin-left: 8px;
+}
+
+.copy-status {
+  display: inline-block;
+  margin-left: 8px;
+  color: #fdfdfd;
+  font-size: 12px;
+}
+
 .title {
   width: 440px;
 }

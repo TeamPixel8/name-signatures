@@ -10,7 +10,7 @@
       <tbody>
         <tr>
           <td class="logo"><img src="https://user-images.githubusercontent.com/97190576/148313025-c8fa4a2e-2d5d-46d4-be12-2c7f11855f04.png" width="92" alt="Pixel8" style="width: 92px; max-width: 92px;"></td>
-          <td class="title-text"><h1 style="font-family: Arial, Helvetica, sans-serif;">&nbspSignature Generator</h1></td>
+          <td class="title-text"><h1 style="font-family: Arial, Helvetica, sans-serif;">&nbsp;Signature Generator</h1></td>
         </tr>
       </tbody>
     </table>
@@ -30,85 +30,71 @@
         <input type="text" id="email" name="email" placeholder="Use lowercase: name@pixel8.ca"><br>
       </form>
 
-      <button onclick="updateSignature()">Replace</button>
+      <button type="button" onclick="updateSignature()">Replace</button>
+      <button type="button" class="copy-button" onclick="copySignature()">Copy Signature</button>
+      <span id="copy_status" class="copy-status" role="status" aria-live="polite"></span>
 
       <a class="toggle" href="dark-index.html">Dark Mode</a>
 
     </div>
 
     <!-- Generated Signature -->
-    <div class="gen-sign">
-      <table cellspacing="0" width="400" cellpadding="0" border="0">
+    <div class="gen-sign" id="signature">
+      <table width="400" cellpadding="0" cellspacing="0" border="0" style="width: 400px; border-collapse: collapse; border-spacing: 0; font-family: Arial, Helvetica, sans-serif; color: #000001;">
         <tr>
-         <td valign="top" width="64" style="vertical-align: top;">
-           <img src="https://user-images.githubusercontent.com/97190576/148271286-f24f3186-a4c4-402b-ba58-e104f2598a9e.png" width="64" alt="Pixel8" style="width: 64px; max-width: 64px;">
+         <td width="64" valign="top" style="width: 64px; vertical-align: top; padding: 0;">
+           <img src="https://user-images.githubusercontent.com/97190576/148271286-f24f3186-a4c4-402b-ba58-e104f2598a9e.png" width="64" height="64" alt="Pixel8" style="display: block; width: 64px; height: 64px; border: 0;">
          </td>
 
-        <td valign="top" style="margin: 0.1px; font-size: 1em; padding: 0px 0px 0px 15px; vertical-align: top;">
-          <table cellspacing="0" cellpadding="0" border="0" style="width: 100%; max-width: 400px; line-height: 1.4; font-family: Arial, Helvetica, sans-serif; font-size: 75%; color: rgb(0, 0, 1);">
+        <td valign="top" style="padding: 0 0 0 15px; vertical-align: top;">
+          <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; border-spacing: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 17px; color: #000001;">
 
     <!-- Name + Title -->
             <tr>
-              <td style="margin: 0.1px; padding-bottom: 4px;">
-                <div style="font-family: Arial, Helvetica, sans-serif;">
-                  <span id="first_name" style="font-size: 1.2em; color: rgb(17, 42, 62); font-weight: 600;">Ella Anderson</span>
+              <td style="padding: 0 0 4px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 17px;">
+                  <span id="first_name" style="font-size: 14px; line-height: 17px; color: #112a3e; font-weight: 600;">Ella Anderson</span>
                   <span> | </span>
                   <span id="job_title">Talent Recruiter</span>
-                </div>
               </td>
             </tr>
 
     <!-- Contact Links -->
       <tr>
-        <td style="margin: 0.1px; padding: 1px 0px;">
-          <div style="font-family: Arial, Helvetica, sans-serif;">
-            <span style="font-weight: 600; color: rgb(17, 42, 62);">Phone:</span>
-            <a href="tel:(416) 677-1853" target="_blank" id="phone_number" style="color: rgb(0, 0, 1); font-family: Arial, Helvetica, sans-serif;">(416) 677-1853</a>
-          </div>
+        <td style="padding: 1px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 17px;">
+            <span style="font-weight: 600; color: #112a3e;">Phone:</span>
+            <a href="tel:(416) 677-1853" id="phone_number" style="color: #000001; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;">(416) 677-1853</a>
         </td>
       </tr>
 
       <tr>
-        <td style="margin: 0.1px; padding: 1px 0px;">
-          <div style="font-family: Arial, Helvetica, sans-serif;">
-            <span style="font-weight: 600; color: rgb(17, 42, 62);">Email:</span>
-              <a href="mailto:ella@pixel8.ca" target="_blank" id="e_mail" style="color: rgb(0, 0, 1); font-family: Arial, Helvetica, sans-serif;">ella@pixel8.ca</a>
-          </div>
+        <td style="padding: 1px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 17px;">
+            <span style="font-weight: 600; color: #112a3e;">Email:</span>
+              <a href="mailto:ella@pixel8.ca" id="e_mail" style="color: #000001; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;">ella@pixel8.ca</a>
         </td>
       </tr>
 
       <tr>
-        <td style="margin: 0.1px; padding: 1px 0px;">
-          <div style="font-family: Arial, Helvetica, sans-serif;">
-            <span style="font-weight: 600; color: rgb(17, 42, 62);">Website:</span>
-            <span><a href="https://pixel8.ca" target="_blank" style="color: rgb(0, 0, 1); font-family: Arial, Helvetica, sans-serif;">www.pixel8.ca</a></span>
-          </div>
+        <td style="padding: 1px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 17px;">
+            <span style="font-weight: 600; color: #112a3e;">Website:</span>
+            <a href="https://pixel8.ca" style="color: #000001; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;">www.pixel8.ca</a>
         </td>
       </tr>
-
-    <!-- Spacing -->
-      <!-- <tr>
-        <td style="margin: 0.1px; color: rgb(0, 0, 1); padding: 8px 0px 3px; display: block;">
-          <div style="font-family: Arial, Helvetica, sans-serif;">
-          </div>
-        </td>
-      </tr> -->
 
     <!-- Social Links -->
       <tr>
-        <td style="margin: 0.1px;">
-          <table cellspacing="0" cellpadding="0" border="0">
+        <td style="padding: 0;">
+          <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; border-spacing: 0;">
             <tr>
-              <td style="margin: 0.1px; padding: 0px 4px 0px 0px;">
-                <a href="https://instagram.com/pixel8.ca/" target="_blank"><img width="21" src="https://user-images.githubusercontent.com/97190576/148271291-969da33c-a8db-4345-9289-2eb4e31f7833.png" alt="Instagram" style="width: 21px; min-width: 21px;"></a>
+              <td style="padding: 0 4px 0 0;">
+                <a href="https://instagram.com/pixel8.ca/"><img width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271291-969da33c-a8db-4345-9289-2eb4e31f7833.png" alt="Instagram" style="display: block; width: 21px; height: 21px; border: 0;"></a>
               </td>
 
-              <td style="margin: 0.1px; padding: 0px 4px 0px 0px;">
-                <a href="https://ca.linkedin.com/company/pixel8-ca" target="_blank"><img width="21" src="https://user-images.githubusercontent.com/97190576/148271292-dac05eb2-162c-46d8-9404-e355efb13c04.png" alt="LinkedIn" style="width: 21px; min-width: 21px;"></a>
+              <td style="padding: 0 4px 0 0;">
+                <a href="https://ca.linkedin.com/company/pixel8-ca"><img width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271292-dac05eb2-162c-46d8-9404-e355efb13c04.png" alt="LinkedIn" style="display: block; width: 21px; height: 21px; border: 0;"></a>
               </td>
 
-              <td style="margin: 0.1px; padding: 0px 4px 0px 0px;">
-                <a href="https://facebook.com/pixel8.ca/" target="_blank"><img width="21" src="https://user-images.githubusercontent.com/97190576/148271288-81feddbc-516c-4042-b6ed-e359d55576da.png" alt="Facebook" style="width: 21px; min-width: 21px;"></a>
+              <td style="padding: 0 4px 0 0;">
+                <a href="https://facebook.com/pixel8.ca/"><img width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271288-81feddbc-516c-4042-b6ed-e359d55576da.png" alt="Facebook" style="display: block; width: 21px; height: 21px; border: 0;"></a>
               </td>
             </tr>
           </table>
@@ -127,14 +113,39 @@
         var jt = document.getElementById("jtitle").value;
         var pn = document.getElementById("pnumber").value;
         var em = document.getElementById("email").value;
-        console.log(fn,jt,pn,em)
-
-        document.getElementById("first_name").innerHTML = fn;
-        document.getElementById("job_title").innerHTML = jt;
-        document.getElementById("phone_number").innerHTML = pn;
+        document.getElementById("first_name").textContent = fn;
+        document.getElementById("job_title").textContent = jt;
+        document.getElementById("phone_number").textContent = pn;
         document.getElementById("phone_number").href="tel:" + pn;
-        document.getElementById("e_mail").innerHTML = em;
+        document.getElementById("e_mail").textContent = em;
         document.getElementById("e_mail").href="mailto:" + em;
+      }
+
+      async function copySignature() {
+        var signature = document.getElementById("signature");
+        var status = document.getElementById("copy_status");
+        var html = signature.innerHTML.trim();
+        var plainText = signature.innerText.trim();
+
+        try {
+          if (navigator.clipboard && window.ClipboardItem) {
+            await navigator.clipboard.write([new ClipboardItem({
+              "text/html": new Blob([html], { type: "text/html" }),
+              "text/plain": new Blob([plainText], { type: "text/plain" })
+            })]);
+          } else {
+            var handleCopy = function (event) {
+              event.clipboardData.setData("text/html", html);
+              event.clipboardData.setData("text/plain", plainText);
+              event.preventDefault();
+            };
+            document.addEventListener("copy", handleCopy, { once: true });
+            if (!document.execCommand("copy")) throw new Error("Copy command failed");
+          }
+          status.textContent = "Copied!";
+        } catch (error) {
+          status.textContent = "Copy failed. Please try again.";
+        }
       }
     </script>
   </body>
