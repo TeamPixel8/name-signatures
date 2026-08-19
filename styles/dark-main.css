@@ -79,6 +79,15 @@ button {
   margin-left: 8px;
 }
 
+.apple-mail-button {
+  width: auto;
+  margin-top: 8px;
+}
+
+button:disabled {
+  opacity: 0.55;
+}
+
 .copy-status {
   display: inline-block;
   margin-left: 8px;

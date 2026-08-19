@@ -31,7 +31,8 @@
       </form>
 
       <button type="button" onclick="updateSignature()">Replace</button>
-      <button type="button" class="copy-button" onclick="copySignature()">Copy Signature</button>
+      <button type="button" class="copy-button" onclick="copySignature(false)">Copy Signature</button>
+      <button type="button" class="apple-mail-button" id="apple_mail_copy" onclick="copySignature(true)" disabled>Preparing Apple Mail…</button>
       <span id="copy_status" class="copy-status" role="status" aria-live="polite"></span>
 
       <a class="toggle" href="dark-index.html">Dark Mode</a>
@@ -43,7 +44,7 @@
       <table width="400" cellpadding="0" cellspacing="0" border="0" style="width: 400px; border-collapse: collapse; border-spacing: 0; font-family: Arial, Helvetica, sans-serif; color: #000001;">
         <tr>
          <td width="64" valign="top" style="width: 64px; vertical-align: top; padding: 0;">
-           <img src="https://user-images.githubusercontent.com/97190576/148271286-f24f3186-a4c4-402b-ba58-e104f2598a9e.png" width="64" height="64" alt="Pixel8" style="display: block; width: 64px; height: 64px; border: 0;">
+           <img data-apple-image="logo" src="https://user-images.githubusercontent.com/97190576/148271286-f24f3186-a4c4-402b-ba58-e104f2598a9e.png" width="64" height="64" alt="Pixel8" style="display: block; width: 64px; height: 64px; border: 0;">
          </td>
 
         <td valign="top" style="padding: 0 0 0 15px; vertical-align: top;">
@@ -86,15 +87,15 @@
           <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; border-spacing: 0;">
             <tr>
               <td style="padding: 0 4px 0 0;">
-                <a href="https://instagram.com/pixel8.ca/"><img width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271291-969da33c-a8db-4345-9289-2eb4e31f7833.png" alt="Instagram" style="display: block; width: 21px; height: 21px; border: 0;"></a>
+                <a href="https://instagram.com/pixel8.ca/"><img data-apple-image="instagram" width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271291-969da33c-a8db-4345-9289-2eb4e31f7833.png" alt="Instagram" style="display: block; width: 21px; height: 21px; border: 0;"></a>
               </td>
 
               <td style="padding: 0 4px 0 0;">
-                <a href="https://ca.linkedin.com/company/pixel8-ca"><img width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271292-dac05eb2-162c-46d8-9404-e355efb13c04.png" alt="LinkedIn" style="display: block; width: 21px; height: 21px; border: 0;"></a>
+                <a href="https://ca.linkedin.com/company/pixel8-ca"><img data-apple-image="linkedin" width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271292-dac05eb2-162c-46d8-9404-e355efb13c04.png" alt="LinkedIn" style="display: block; width: 21px; height: 21px; border: 0;"></a>
               </td>
 
               <td style="padding: 0 4px 0 0;">
-                <a href="https://facebook.com/pixel8.ca/"><img width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271288-81feddbc-516c-4042-b6ed-e359d55576da.png" alt="Facebook" style="display: block; width: 21px; height: 21px; border: 0;"></a>
+                <a href="https://facebook.com/pixel8.ca/"><img data-apple-image="facebook" width="21" height="21" src="https://user-images.githubusercontent.com/97190576/148271288-81feddbc-516c-4042-b6ed-e359d55576da.png" alt="Facebook" style="display: block; width: 21px; height: 21px; border: 0;"></a>
               </td>
             </tr>
           </table>
@@ -121,32 +122,108 @@
         document.getElementById("e_mail").href="mailto:" + em;
       }
 
-      async function copySignature() {
+      var appleMailImages = {};
+
+      function copySignature(forAppleMail) {
+        if (["fname", "jtitle", "pnumber", "email"].some(function (id) {
+          return document.getElementById(id).value;
+        })) {
+          updateSignature();
+        }
+
         var signature = document.getElementById("signature");
         var status = document.getElementById("copy_status");
-        var html = signature.innerHTML.trim();
+        var copy = signature.cloneNode(true);
         var plainText = signature.innerText.trim();
+        var helper = document.createElement("textarea");
+        var copiedHtml = false;
+
+        if (forAppleMail && Object.keys(appleMailImages).length !== 4) {
+          status.textContent = "Apple Mail images are still loading. Please try again.";
+          return;
+        }
+
+        copy.querySelectorAll("img[data-apple-image]").forEach(function (image) {
+          var key = image.getAttribute("data-apple-image");
+          if (forAppleMail) image.src = appleMailImages[key];
+          image.removeAttribute("data-apple-image");
+        });
+        copy.querySelectorAll("[id]").forEach(function (element) {
+          element.removeAttribute("id");
+        });
+
+        var html = copy.innerHTML.trim();
+        helper.value = plainText;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        helper.style.pointerEvents = "none";
+        document.body.appendChild(helper);
+        helper.select();
+        helper.setSelectionRange(0, helper.value.length);
+
+        var handleCopy = function (event) {
+          if (!event.clipboardData) return;
+          event.clipboardData.setData("text/html", html);
+          event.clipboardData.setData("text/plain", plainText);
+          event.preventDefault();
+          copiedHtml = true;
+        };
+
+        document.addEventListener("copy", handleCopy);
 
         try {
+          if (document.execCommand("copy") && copiedHtml) {
+            status.textContent = "Copied!";
+            return;
+          }
+
           if (navigator.clipboard && window.ClipboardItem) {
-            await navigator.clipboard.write([new ClipboardItem({
+            navigator.clipboard.write([new ClipboardItem({
               "text/html": new Blob([html], { type: "text/html" }),
               "text/plain": new Blob([plainText], { type: "text/plain" })
-            })]);
+            })]).then(function () {
+              status.textContent = "Copied!";
+            }).catch(function () {
+              status.textContent = "Copy failed. Please try again.";
+            });
           } else {
-            var handleCopy = function (event) {
-              event.clipboardData.setData("text/html", html);
-              event.clipboardData.setData("text/plain", plainText);
-              event.preventDefault();
-            };
-            document.addEventListener("copy", handleCopy, { once: true });
-            if (!document.execCommand("copy")) throw new Error("Copy command failed");
+            status.textContent = "Copy failed. Please try again.";
           }
-          status.textContent = "Copied!";
         } catch (error) {
           status.textContent = "Copy failed. Please try again.";
+        } finally {
+          document.removeEventListener("copy", handleCopy);
+          document.body.removeChild(helper);
         }
       }
+
+      function imageToDataUrl(url) {
+        return fetch(url).then(function (response) {
+          if (!response.ok) throw new Error("Image failed to load");
+          return response.blob();
+        }).then(function (blob) {
+          return new Promise(function (resolve, reject) {
+            var reader = new FileReader();
+            reader.onload = function () { resolve(reader.result); };
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          });
+        });
+      }
+
+      Promise.all([
+        imageToDataUrl("images/signature/logo.png").then(function (data) { appleMailImages.logo = data; }),
+        imageToDataUrl("images/signature/instagram.png").then(function (data) { appleMailImages.instagram = data; }),
+        imageToDataUrl("images/signature/linkedin.png").then(function (data) { appleMailImages.linkedin = data; }),
+        imageToDataUrl("images/signature/facebook.png").then(function (data) { appleMailImages.facebook = data; })
+      ]).then(function () {
+        var button = document.getElementById("apple_mail_copy");
+        button.disabled = false;
+        button.textContent = "Copy for Apple Mail";
+      }).catch(function () {
+        document.getElementById("copy_status").textContent = "Apple Mail images could not be prepared.";
+      });
     </script>
   </body>
 </html>
