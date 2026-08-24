@@ -1,45 +1,88 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link href="styles/dark-main.css" rel="stylesheet">
-  </head>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <body>
-    <div class="container">
-    <table class="title">
-      <tbody>
-        <tr>
-          <td class="logo"><img src="https://user-images.githubusercontent.com/97190576/148338064-05a59996-c175-466a-97cd-3bac9e34dd91.png" width="92" alt="Pixel8" style="width: 92px; max-width: 92px;"></td>
-          <td class="title-text"><h1 style="font-family: Arial, Helvetica, sans-serif;">&nbsp;Signature Generator</h1></td>
-        </tr>
-      </tbody>
-    </table>
+<title>Signature Generator — Dark | Pixel8</title>
+<meta name="description" content="Generate a Pixel8 email signature: fill in your details, copy, paste into Gmail, Outlook or Apple Mail.">
+<meta name="robots" content="noindex">
 
-    <div class="input-form" style="font-family: Arial, Helvetica, sans-serif;">
-      <form>
-        <label for="fname">Name</label><br>
-        <input type="text" id="fname" name="fname" placeholder="Use Full Name"><br>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&family=Space+Grotesk:wght@400;500;700&display=swap">
+<link href="styles/main.css" rel="stylesheet">
+</head>
+<body>
 
-        <label for="jtitle">Job Title:</label><br>
-        <input type="text" id="jtitle" name="jtitle" placeholder="Designer, Developer etc."><br>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="https://www.pixel8.ca">
+      <img src="https://user-images.githubusercontent.com/97190576/148313025-c8fa4a2e-2d5d-46d4-be12-2c7f11855f04.png" alt="Pixel8" width="620" height="156">
+      <span class="div" aria-hidden="true"></span>
+      <span class="crumb">Resources / <b>Signatures</b></span>
+    </a>
+    <nav class="site-nav" aria-label="Pixel8">
+      <a href="https://www.pixel8.ca/work">Work</a>
+      <a href="https://www.pixel8.ca/about">About</a>
+      <a class="cta" href="https://www.pixel8.ca/contact-us">Contact Us</a>
+    </nav>
+  </div>
+</header>
 
-        <label for="pnumber">Phone Number:</label><br>
-        <input type="text" id="pnumber" name="pnumber" placeholder="Follow Format: (000) 000-0000"><br>
+<main>
+  <section class="hero wrap">
+    <div class="eyebrow">Pixel8 Resources — Team Tool</div>
+    <h1>Email signature<br>generator</h1>
+    <p>Fill in your details, copy, and paste straight into Gmail, Outlook or Apple Mail.
+       Pick the variant that matches the background your mail client uses.</p>
+  </section>
 
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email" placeholder="Use lowercase: name@pixel8.ca"><br>
-      </form>
+  <section class="wrap">
+    <div class="panels">
 
-      <button type="button" onclick="updateSignature()">Replace</button>
-      <button type="button" class="copy-button" onclick="copySignature(false)">Copy Signature</button>
-      <button type="button" class="apple-mail-button" id="apple_mail_copy" onclick="copySignature(true)" disabled>Preparing Apple Mail…</button>
-      <span id="copy_status" class="copy-status" role="status" aria-live="polite"></span>
+      <div class="panel">
+        <h2>Your details</h2>
+        <form>
+          <div class="field">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Use your full name">
+          </div>
+          <div class="field">
+            <label for="jtitle">Job title</label>
+            <input type="text" id="jtitle" name="jtitle" placeholder="Designer, Developer, etc.">
+          </div>
+          <div class="field">
+            <label for="pnumber">Phone number</label>
+            <input type="text" id="pnumber" name="pnumber" placeholder="(000) 000-0000">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="lowercase: name@pixel8.ca">
+          </div>
+        </form>
 
-      <a class="toggle" href="index.html">Light Mode</a>
-    </div>
+        <div class="actions">
+          <button type="button" class="primary" onclick="updateSignature()">Update preview</button>
+          <button type="button" class="copy-button" onclick="copySignature(false)">Copy signature</button>
+          <button type="button" class="apple-mail-button" id="apple_mail_copy" onclick="copySignature(true)" disabled>Preparing Apple Mail…</button>
+        </div>
+        <span id="copy_status" class="copy-status" role="status" aria-live="polite"></span>
 
-    <!-- Generated Signature -->
-    <div class="gen-sign" id="signature">
+        <div class="variant">
+          <div class="legend">Signature variant</div>
+          <div class="seg">
+            <a href="index.html">For light backgrounds</a>
+            <a href="dark-index.html" aria-current="page">For dark backgrounds</a>
+          </div>
+          <p class="hint">Light text, for mail clients set to a dark theme.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Preview — what gets copied</h2>
+        <div class="preview preview--dark">
+          <div class="gen-sign" id="signature">
       <table width="400" cellpadding="0" cellspacing="0" border="0" style="width: 400px; border-collapse: collapse; border-spacing: 0; font-family: Arial, Helvetica, sans-serif; color: #fdfdfd;">
         <tr>
          <td width="64" valign="top" style="width: 64px; vertical-align: top; padding: 0;">
@@ -105,9 +148,26 @@
         </tr>
       </table>
     </div>
-  </div>
+        </div>
+      </div>
 
-    <script>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="Pixel8 footer">
+      <a href="https://www.pixel8.ca">Pixel8.ca</a>
+      <a href="https://www.pixel8.ca/work">Work</a>
+      <a href="https://www.pixel8.ca/contact-us">Contact</a>
+      <a href="https://www.pixel8.ca/privacy-policy">Privacy</a>
+    </nav>
+    <div class="copy">A Pixel8 team tool.</div>
+  </div>
+</footer>
+
+<script>
       function updateSignature() {
         var fn = document.getElementById("fname").value;
         var jt = document.getElementById("jtitle").value;
@@ -224,5 +284,5 @@
         document.getElementById("copy_status").textContent = "Apple Mail images could not be prepared.";
       });
     </script>
-  </body>
+</body>
 </html>

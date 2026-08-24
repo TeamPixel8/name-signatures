@@ -1,99 +1,194 @@
+/* ------------------------------------------------------------------
+   Pixel8 Signature Generator — brand tokens shared with pixel8.ca
+   ground #000 · accent #FF3D3D · text #D9D9D9
+   display Unbounded · body Space Grotesk
+
+   NOTE: nothing in here styles the generated signature itself. That
+   markup stays inline-styled Arial so it survives email clients.
+   ------------------------------------------------------------------ */
+
+:root {
+  --ink:        #000000;
+  --surface:    #0d0d0f;
+  --surface-2:  #151517;
+  --line:       #26262a;
+  --line-soft:  #1c1c1f;
+  --text:       #d9d9d9;
+  --text-dim:   #8a8a90;
+  --head:       #ffffff;
+  --accent:     #ff3d3d;
+
+  --display: "Unbounded", "Arial Black", Impact, system-ui, sans-serif;
+  --body: "Space Grotesk", -apple-system, "Segoe UI", Arial, sans-serif;
+
+  --r-sm: 6px;
+  --r-lg: 20px;
+  --page: 1080px;
+}
+
+* { box-sizing: border-box; }
+
 body {
-  background-color: #fdfdfd;
-  margin: 25px;
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font: 400 15px/1.55 var(--body);
+  -webkit-font-smoothing: antialiased;
 }
 
-h1 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #0C0A3E;
+h1, h2 {
+  font-family: var(--display);
+  color: var(--head);
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  margin: 0;
 }
 
-.toggle {
-  font-size: 11px;
-  text-decoration: none;
-  color: #0C0A3E;
-  font-weight: bold;
-  padding: 12px;
-  border: 2px solid;
-  border-color:  #f8f8f8;
-  border-radius: 5px;
+a { color: var(--text); text-underline-offset: 3px; }
+a:hover { color: var(--head); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.wrap { width: 100%; max-width: var(--page); margin: 0 auto; padding: 0 24px; }
+
+/* ---------------- header ---------------- */
+
+.site-header {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(0, 0, 0, .82);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.site-header .wrap { display: flex; align-items: center; gap: 20px; height: 66px; }
+
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; flex-shrink: 0; }
+.brand img { height: 22px; width: auto; display: block; filter: invert(1); }
+.brand .div { width: 1px; height: 20px; background: var(--line); }
+.brand .crumb {
+  font-family: var(--display); font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  color: var(--text-dim); text-transform: uppercase; white-space: nowrap;
+}
+.brand .crumb b { color: var(--head); font-weight: 700; }
+
+.site-nav { margin-left: auto; display: flex; align-items: center; gap: 26px; }
+.site-nav a { font-size: 14px; text-decoration: none; }
+.site-nav .cta {
+  border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 16px; font-weight: 500;
+}
+.site-nav .cta:hover { border-color: var(--accent); }
+
+/* ---------------- hero ---------------- */
+
+.hero { padding: 52px 0 32px; }
+.hero .eyebrow {
+  font-family: var(--display); font-size: 11px; font-weight: 700; letter-spacing: .18em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(32px, 5vw, 54px); font-weight: 900; line-height: .96; letter-spacing: -.02em;
+}
+.hero p { margin: 18px 0 0; max-width: 56ch; color: var(--text); }
+
+/* ---------------- layout ---------------- */
+
+.panels {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px; align-items: start;
 }
 
-.toggle:hover {
-  background-color: #f8f8f8;
+.panel {
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface); padding: 26px 24px;
 }
-.container {
-  width: 444px;
-  margin: 0 auto;
-}
-
-.input-form {
-  width: 400px;
-  border: 2px solid #f8f8f8;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  border-radius: 20px;
-}
-.gen-sign {
-  display: inline-block;
-  padding: 20px;
-  /* background-color: #f8f8f8; */
-  border: 2px solid #f8f8f8;
-  border-radius: 20px;
+.panel > h2 {
+  font-size: 11px; font-weight: 700; letter-spacing: .16em;
+  color: var(--text-dim); margin-bottom: 20px;
 }
 
-label {
-  color: #0C0A3E;
-  font-size: 12px;
-  font-weight: bold;
+/* ---------------- form ---------------- */
+
+.field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+.field label { font-size: 12.5px; font-weight: 500; color: var(--text); }
+
+input[type=text] {
+  font: 400 14px var(--body); width: 100%;
+  background: var(--surface-2); color: var(--head);
+  border: 1px solid var(--line); border-radius: var(--r-sm); padding: 11px 12px;
 }
-input {
-  border: 1px solid #e4e9f0;
-  border-radius: 5px;
-  width: 380px;
-  padding: 8px;
-  margin-bottom: 20px;
-}
+input[type=text]::placeholder { color: #5f5f66; }
+input[type=text]:focus { border-color: var(--accent); outline: none; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 
 button {
-  color: #ffffff;
-  font-weight: bold;
-  background-color: #FF1254;
-  width: 92px;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
+  font: 500 13.5px/1 var(--body); color: var(--text);
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: 12px 16px; cursor: pointer;
+  transition: background .13s, border-color .13s, color .13s;
 }
-
-.copy-button {
-  width: auto;
-  margin-left: 8px;
+button:hover:not(:disabled) { background: #1d1d21; border-color: #3a3a41; color: var(--head); }
+button:disabled { opacity: .35; cursor: not-allowed; }
+button.primary {
+  background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700;
 }
-
-.apple-mail-button {
-  width: auto;
-  margin-top: 8px;
-}
-
-button:disabled {
-  opacity: 0.55;
-}
+button.primary:hover:not(:disabled) { background: #ff5555; border-color: #ff5555; }
 
 .copy-status {
-  display: inline-block;
-  margin-left: 8px;
-  color: #0C0A3E;
-  font-size: 12px;
+  display: block; margin-top: 14px; min-height: 18px;
+  font-size: 12.5px; color: var(--accent);
 }
 
-.title {
-  width: 440px;
-}
+/* ---------------- variant switch ---------------- */
 
-.logo {
-  text-align: right;
-  width: 38%;
-  vertical-align: middle;
+.variant { margin-top: 26px; }
+.variant .legend {
+  font-family: var(--display); font-size: 10px; font-weight: 700; letter-spacing: .16em;
+  color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px;
+}
+.seg {
+  display: flex; gap: 2px; padding: 3px;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm);
+}
+.seg a {
+  flex: 1; text-align: center; text-decoration: none;
+  font-size: 12.5px; color: var(--text-dim);
+  padding: 9px 6px; border-radius: 4px;
+}
+.seg a:hover { color: var(--text); }
+.seg a[aria-current="page"] { background: var(--accent); color: #fff; font-weight: 700; }
+.hint { font-size: 12.5px; color: var(--text-dim); margin: 10px 0 0; }
+
+/* ---------------- signature preview ----------------
+   The preview sits on the background the signature is built for, so what
+   you see is what lands in the email. */
+
+.preview {
+  border-radius: 12px; padding: 24px;
+  overflow-x: auto;
+}
+.preview--light { background: #ffffff; }
+.preview--dark { background: #0f1111; border: 1px solid var(--line); }
+
+/* ---------------- footer ---------------- */
+
+.site-footer {
+  margin-top: 64px; border-top: 1px solid var(--line-soft);
+  padding: 34px 0 52px; font-size: 13.5px; color: var(--text-dim);
+}
+.site-footer .wrap { display: flex; flex-wrap: wrap; gap: 20px 36px; align-items: center; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
+.site-footer a { text-decoration: none; }
+.site-footer .copy { margin-left: auto; }
+
+@media (max-width: 900px) {
+  .panels { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .wrap { padding: 0 16px; }
+  .site-nav a:not(.cta) { display: none; }
+  .brand .crumb { display: none; }
+  .hero { padding: 34px 0 24px; }
+  .site-footer .copy { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }
